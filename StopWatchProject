@@ -1,0 +1,168 @@
+import React, { useState, Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  AppRegistry,
+  ScrollView,
+} from 'react-native';
+import formatTime from 'minutes-seconds-milliseconds';
+
+const StopwatchFunc = (props) => {
+  const [timeElapsed, settimeElapsed] = useState(0);
+  const [running, setRunning] = useState(false);
+  [startTime, setstartTime] = useState(null);
+  const [lap, setlap] = useState([]);
+  laps = () => {
+    return lap.map(function (time, index) {
+      if (index == 0) {
+        return (
+          <View style={[styles.Lap,{marginTop: 0}]} key={index}>
+            <Text style={styles.textLap}>Lap #{index + 1}</Text>
+            <Text style={styles.textLap}>
+              {formatTime(time)}
+            </Text>
+          </View>
+        )
+      }else{
+        return (
+          <View style={styles.Lap} key={index}>
+            <Text style={styles.textLap}>Lap #{index + 1}</Text>
+            <Text style={styles.textLap}>
+              {formatTime(time)}
+            </Text>
+          </View>
+        )
+      }
+    });
+  };
+
+  startStopButton = () => {
+    var style = running ? styles.stopButton : styles.startButton;
+    return (
+      <TouchableOpacity
+        style={[styles.roundButton, style]}
+        onPress={handleStartPress}
+      >
+        <Text style={styles.textButton}>
+          {running ? 'Stop' : 'Start'}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
+  lapButton = () => {
+    return (
+      <TouchableOpacity
+        onPress={handleLapPress}
+        style={styles.roundButton}
+      >
+        <Text style={styles.textButton}>LAP</Text>
+      </TouchableOpacity>
+    )
+  }
+
+  handleLapPress = () => {
+    var lap1 = timeElapsed;
+    setstartTime(new Date());
+    setlap(lap.concat([lap1]));
+  }
+
+  handleStartPress = () => {
+    if (running) {
+      clearInterval(interval);
+      setRunning(false);
+      return
+    }
+    setstartTime(new Date());
+    interval = setInterval(() => {
+      settimeElapsed(new Date() - startTime);
+      setRunning(true);
+    }, 100);
+  }
+  return (
+    <View style={styles.body}>
+      <View>
+        <Text style={styles.textBig}>
+          {formatTime(timeElapsed)}
+        </Text>
+      </View>
+      <View style={styles.wrapButton}>
+        {lapButton()}
+        {startStopButton()}
+      </View>
+
+      <ScrollView>
+        <View style={{ width: '100%' }}>
+          {laps()}
+        </View>
+      </ScrollView>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    borderWidth: 5,
+    borderColor: 'black',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    padding: 20,
+  },
+  textBig: {
+    color: 'black',
+    fontSize: 50,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  wrapButton: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 20,
+  },
+  roundButton: {
+    marginTop: 20,
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+    backgroundColor: '#ccc',
+    borderColor: '#777',
+    borderWidth: 1,
+  },
+  textButton: {
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  Lap: {
+    borderWidth: 2,
+    borderColor: '#777',
+    width: '100%',
+    marginTop: 20,
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+  },
+  textLap: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  startButton: {
+    backgroundColor: 'pink'
+  },
+  stopButton: {
+    backgroundColor: 'red'
+  },
+});
+
+export default StopwatchFunc;
+
+
