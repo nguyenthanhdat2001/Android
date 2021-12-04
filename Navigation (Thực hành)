@@ -1,0 +1,440 @@
+import * as React from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+function PeopleSreen({ navigation }) {
+  const handle = () => {
+    navigation.navigate('Family')
+  }
+  const [data, setData] = React.useState([
+    {
+      img: "https://scontent.fdad3-4.fna.fbcdn.net/v/t1.6435-1/c80.0.320.320a/p320x320/193470143_2660208570944368_5286131751206799332_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=7206a8&_nc_ohc=Kd8hsPhnTW0AX9xrvuL&_nc_ht=scontent.fdad3-4.fna&oh=4023ddcd168225e627d08d733d410651&oe=61D02938",
+      name: 'Đoàn',
+      time: '5 ngày trước',
+      bgColor: 'brown'
+    },
+    {
+      img: "https://scontent.fdad3-3.fna.fbcdn.net/v/t1.6435-1/p320x320/98108501_2444077502549639_503431323130527744_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=7206a8&_nc_ohc=7IIKZb6XwfEAX81H7eD&_nc_ht=scontent.fdad3-3.fna&oh=817b9bd2ae7d0b091fb1a6fb501aea07&oe=61CF3A56",
+      name: 'Hưng',
+      time: '5 năm trước',
+      bgColor: 'pink'
+    },
+    {
+      img: "https://scontent.fdad3-3.fna.fbcdn.net/v/t1.6435-1/p320x320/54523627_2287651468173419_3493828214508224512_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=7206a8&_nc_ohc=jJ9wPvs5rmEAX_HKO8c&_nc_ht=scontent.fdad3-3.fna&oh=9daffa2cdd933290184b3e37ddfb73cd&oe=61CEEC69",
+      name: 'Quang Anh',
+      time: 'Thế kỉ trước',
+      bgColor: 'red'
+    },
+  ])
+  return (
+    <ScrollView style={styles.body}>
+      {/*================ Item1 ================*/}
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={handle}>
+            <View style={styles.item}>
+              <View style={[styles.imageContainer, {
+                borderColor: item.bgColor,
+              }]}>
+                <Image
+                  style={styles.img}
+                  source={{
+                    uri: item.img,
+                  }}
+                  resizeMode={"cover"}
+                />
+              </View>
+              <View style={styles.text}>
+                <View style={styles.content}>
+                  <Text style={styles.bigText}>{item.name}</Text>
+                  <Text style={styles.smallText}>{item.time}</Text>
+                  <View style={styles.people}>
+                    <View style={styles.peopleItem}>
+                      <Text style={{ fontWeight: 'bold' }}>DH</Text>
+                    </View>
+                    <View style={styles.peopleItem}>
+                      <Image
+                        style={styles.img}
+                        resizeMode={'cover'}
+                        source={{
+                          uri: 'https://images.unsplash.com/photo-1638446397350-45313d5f1d01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8aG1lbnZRaFVteE18fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+                        }}
+                      />
+                    </View>
+                    <View style={styles.peopleItem}>
+                      <Text style={{ fontWeight: 'bold' }}>AH</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.icon}>
+                  <FontAwesome5 name={'chevron-right'} size={18} color={'#999'} />
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      >
+      </FlatList>
+    </ScrollView>
+  )
+}
+
+function FamilySreen() {
+  return (
+    <View style={styles.body}>
+      <View style={styles.imgShow}>
+        <Image
+          style={styles.img}
+          resizeMode={'cover'}
+          source={{
+            uri: 'https://images.unsplash.com/photo-1638500551033-a0f60c8e768e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDJ8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+          }}
+        />
+        <View style={styles.textWrap}>
+          <Text style={styles.textWhite}>Family</Text>
+        </View>
+        <TouchableOpacity style={styles.cameraIcon}>
+          <FontAwesome5 name="camera" size={30} color={'rgba(255,255,255,0.8)'} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.paddingContent}>
+        <View style={styles.row}>
+          <Text style={{
+            fontSize: 25, fontWeight: '600'
+          }}>5 days ago</Text>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'red',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'green',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'blue',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'yellow',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'orange',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'pink',
+          }]}></TouchableOpacity>
+          <TouchableOpacity style={[styles.colorButton, {
+            backgroundColor: 'violet',
+          }]}></TouchableOpacity>
+        </View>
+        <View style={[styles.people, {
+          paddingLeft: 50,
+          paddingRight: 50,
+          flexWrap: 'wrap',
+        }]}>
+          <View style={styles.peopleItemBig}>
+            <Image
+              style={styles.img}
+              resizeMode={'cover'}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1638446397350-45313d5f1d01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8aG1lbnZRaFVteE18fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+              }}
+            />
+          </View>
+          <View style={styles.peopleItemBig}>
+            <Text style={{
+              fontWeight: 'bold',
+              fontSize: 20
+            }}>DH</Text>
+          </View>
+          <View style={styles.peopleItemBig}>
+            <Image
+              style={styles.img}
+              resizeMode={'cover'}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1638446397350-45313d5f1d01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8aG1lbnZRaFVteE18fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+              }}
+            />
+          </View>
+          <View style={styles.peopleItemBig}>
+            <Text style={{
+              fontWeight: 'bold',
+              fontSize: 20
+            }}>DH</Text>
+          </View>
+          <View style={styles.peopleItemBig}>
+            <FontAwesome5 name='user-plus' size={25} color={'#fff'} />
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+function Select({ navigation }) {
+  const [people, setPeople] = React.useState([
+    {
+      title: 'AH',
+      fullName: 'Anana Haro',
+      icon: 'check-circle',
+    },
+    {
+      title: 'DH',
+      fullName: 'Daniel Higgins',
+      icon: 'check-circle',
+    },
+    {
+      title: 'DT',
+      fullName: 'David Taylor',
+      icon: 'check-circle',
+    },
+    {
+      title: '',
+      fullName: 'John Appleseed',
+      icon: 'check-circle',
+    },
+    {
+      title: 'HZ',
+      fullName: 'Hank Zakroff',
+      icon: '',
+    },
+    {
+      title: 'KB',
+      fullName: 'Kate Bell',
+      icon: '',
+    },
+  ]);
+  return (
+    <FlatList
+      keyExtractor={(item, index) => index.toString()}
+      data={people}
+      renderItem={({ item }) => (
+        <View style={styles.body}>
+          <View style={styles.main_list}>
+            <View style={styles.row_1}>
+              <Text style={styles.text_row1}>{item.title}</Text>
+            </View>
+            <View style={styles.row_2}>
+              <Text style={styles.flname}>{item.fullName}</Text>
+            </View>
+            <View style={styles.row_3}>
+              <FontAwesome5 name={item.icon} size={20} color={'blue'} />
+            </View>
+          </View>
+        </View>
+      )}
+    />
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="People">
+        <Stack.Screen
+          name="People"
+          component={PeopleSreen}
+          options={({ navigation }) => ({
+            title: "People",
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Select')}
+              >
+                <FontAwesome5 name="plus" size={20} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Family"
+          component={FamilySreen}
+          options={({ navigation }) => ({
+            title: 'Family',
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.goBack()}
+              >
+                <Text style={{
+                  fontWeight: '600',
+                  fontSize: 18,
+                }}>Save</Text>
+              </TouchableOpacity>
+            )
+          })}
+        />
+        <Stack.Screen
+          name="Select"
+          component={Select}
+          options={{
+            title: 'Select'
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  item: {
+    padding: 15,
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    borderColor: '#EDEDEE',
+  },
+
+  imageContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 2,
+    overflow: 'hidden',
+    marginRight: 15,
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+  },
+  text: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  bigText: {
+    fontWeight: '600',
+    fontSize: 18,
+    color: '#000',
+  },
+  smallText: {
+    fontStyle: 'italic',
+    fontWeight: '500'
+  },
+  people: {
+    marginTop: 10,
+    flexDirection: 'row'
+  },
+  peopleItem: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    overflow: 'hidden',
+    backgroundColor: '#CDCDCD',
+    marginRight: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  peopleItemBig: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    overflow: 'hidden',
+    backgroundColor: '#CDCDCD',
+    marginRight: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  imgShow: {
+    maxHeight: 300,
+    position: 'relative',
+  },
+  textWrap: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: 50,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textWhite: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  cameraIcon: {
+    position: 'absolute',
+    bottom: 60,
+    right: 10,
+    width: 50,
+    height: 50,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25
+  },
+  paddingContent: {
+    padding: 10,
+  },
+  row: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#ededed',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+  },
+  colorButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#999'
+  },
+  main_list: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 60,
+    flexDirection: 'row',
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderTopColor: 1,
+    borderLeft: 1,
+    borderRight: 1,
+  },
+  row_1: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#ccc',
+    borderRadius: 50,
+  },
+  text_row1: {
+    lineHeight: 40,
+    textAlign: 'center',
+  },
+  row_2: {
+    flex: 10,
+    marginLeft: 10,
+  },
+  flname: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  row_3: {
+    flex: 1,
+  },
+})
+
+export default App;
