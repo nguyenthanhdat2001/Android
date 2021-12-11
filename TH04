@@ -1,0 +1,195 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import NativeHeadlessJsTaskSupport from 'react-native/Libraries/ReactNative/NativeHeadlessJsTaskSupport';
+
+function Product({ navigation }) {
+  const handle = () => {
+    navigation.navigate('Detail')
+  }
+  const [Item, setItem] = useState([
+    {
+      img: 'https://vn-live-01.slatic.net/p/241304f280d5d3c6d3c8a9c2b78210ff.jpg',
+      name: 'Túi gucci',
+      price: 120,
+    },
+    {
+      img: 'https://onlyy.vn/wp-content/uploads/2021/08/OTH12-3-300x300.jpg',
+      name: 'Túi Đeo Chéo Thanh Lịch',
+      price: 150,
+    },
+    {
+      img: 'https://onlyy.vn/wp-content/uploads/2021/11/tui-xach-nu-thoi-trang-cao-cap-OTH23-30-300x300.jpg',
+      name: 'Túi Cói Kẹp Nách',
+      price: 230,
+    },
+    {
+      img: 'https://onlyy.vn/wp-content/uploads/2021/09/OT19-4-300x300.jpg',
+      name: 'Túi Kẹp Nách Dây Xích',
+      price: 300,
+    },
+    {
+      img: 'https://onlyy.vn/wp-content/uploads/2021/08/OC02-19-300x300.jpg',
+      name: 'Túi Kẹp Nách Da Mềm',
+      price: 160,
+    },
+    {
+      img: 'https://onlyy.vn/wp-content/uploads/2021/08/OTH20-4-300x300.jpg',
+      name: 'Túi Đeo Chéo Khóa Trái Tim',
+      price: 60,
+    },
+  ])
+  return (
+    <View style={styles.body}>
+      <View style={styles.header}>
+        <View>
+          <TouchableOpacity>
+            <FontAwesome5 name="arrow-left" size={20} color={'#333'} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity style={{ marginRight: 20 }}>
+            <FontAwesome5 name='search' size={20} color={'#333'} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <FontAwesome5 name='shopping-cart' size={20} color={'#333'} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View>
+        <Text style={{
+          fontSize: 25,
+          fontWeight: '600',
+          color: '#555',
+          paddingHorizontal: 20,
+        }}>Women</Text>
+      </View>
+
+      <View style={{
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        marginVertical: 10,
+        overflow: 'scroll',
+      }}>
+        <TouchableOpacity style={[styles.headerButton, {
+          borderBottomWidth: 2,
+          borderBottomColor: '#333'
+        }]}>
+          <Text style={styles.textHeader}>Hand Bag</Text>
+          <View styles={styles.underLine}></View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
+          <Text style={styles.textHeader}>Jewellery</Text>
+          <View styles={styles.underLine}></View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
+          <Text style={styles.textHeader}>Footwear</Text>
+          <View styles={styles.underLine}></View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.headerButton}>
+          <Text style={styles.textHeader}>Dress</Text>
+          <View styles={styles.underLine}></View>
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView style={{backgroundColor:'#ededed'}}>
+        <FlatList
+          data={Item}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={handle} style={styles.item}>
+              <View style={styles.image}>
+                <Image
+                  style={[styles.img]}
+                  source={{
+                    uri: item.img
+                  }}
+                  resizeMode={'cover'}
+                />
+              </View>
+              <View style={{ marginVertical: 5 }}>
+                <Text style={{
+                  color: '#333',
+                  fontWeight: '600',
+                  fontSize: 16
+                }}>{item.name}</Text>
+              </View>
+              <View >
+                <Text style={{
+                  fontWeight: '700',
+                  color: '#444',
+                }}>
+                  ${item.price}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </ScrollView>
+    </View>
+  )
+}
+
+function Detail() {
+
+}
+
+// const Stack = createNativeStackNavigator();
+
+// function App() {
+//   return (
+
+//   )
+// }
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+  },
+  header: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  headerButton: {
+    paddingVertical: 5,
+  },
+  textHeader: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333'
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+  },
+  item: {
+    width: '50%',
+    marginTop: 15,
+    padding: 10
+  },
+  image: {
+    width: '100%',
+    maxHeight: 200,
+    overflow: 'hidden',
+  }
+})
+
+export default Product;
